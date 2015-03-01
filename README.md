@@ -1,2 +1,34 @@
-# rails-fullcalendar-resourceviews
-Rails gem of jarnokurlin/fullcalendar
+#Rails-fullcalendar-resourceviews
+
+Asset pipeline bundling of the jarnokurlin/fullcalendar jquery plugin.
+
+###Installation
+
+Add rails-fullcalendar-resourceviews to your Gemfile:
+
+``` 
+gem 'rails-fullcalendar-resourceviews'
+```
+
+Run 
+
+``` 
+bundle install
+```
+
+Include in application.js
+
+```
+//= require fullcalendar
+```
+
+Include in application.css.scss
+
+```
+*= require fullcalendar
+```
+
+###Usage
+
+See the website of the original project for the usage
+https://github.com/jarnokurlin/fullcalendar
