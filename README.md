@@ -1,4 +1,5 @@
 #Rails-fullcalendar-resourceviews
+[![Gem Version](https://badge.fury.io/rb/rails-fullcalendar-resourceviews.svg)](http://badge.fury.io/rb/rails-fullcalendar-resourceviews)
 
 Asset pipeline bundling of the jarnokurlin/fullcalendar jquery plugin.
 
