@@ -1,7 +1,7 @@
-#Rails-fullcalendar-resourceviews
+#Rails-fullcalendar-resourceviews 
 [![Gem Version](https://badge.fury.io/rb/rails-fullcalendar-resourceviews.svg)](http://badge.fury.io/rb/rails-fullcalendar-resourceviews)
 
-Asset pipeline bundling of the jarnokurlin/fullcalendar jquery plugin.
+Asset pipeline bundling of the jarnokurlin/fullcalendar jquery plugin
 
 ###Installation
 
@@ -33,3 +33,4 @@ Include in application.css.scss
 
 See the website of the original project for the usage
 https://github.com/jarnokurlin/fullcalendar
+
