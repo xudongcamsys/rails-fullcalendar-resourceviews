@@ -1,5 +1,5 @@
 #Rails-fullcalendar-resourceviews 
-[![Gem Version](https://badge.fury.io/rb/rails-fullcalendar-resourceviews.svg)](http://badge.fury.io/rb/rails-fullcalendar-resourceviews)
+[![Gem Version](https://badge.fury.io/rb/rails-fullcalendar-resourceviews.svg)](http://badge.fury.io/rb/rails-fullcalendar-resourceviews) [![Dependency Status](https://gemnasium.com/peterthecoon/rails-fullcalendar-resourceviews.svg)](https://gemnasium.com/peterthecoon/rails-fullcalendar-resourceviews)
 
 ##Installation
 Add rails-fullcalendar-resourceviews to your Gemfile:
