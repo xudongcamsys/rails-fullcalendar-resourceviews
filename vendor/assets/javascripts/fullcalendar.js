@@ -6329,20 +6329,23 @@ function ResourceEventRenderer() {
 			var leftColRight = colContentRight(leftCol);
 			var rightColLeft = colContentLeft(rightCol);
 			var rightColRight = colContentRight(rightCol);
+			var minutesOfStart = seg.start.getMinutes();
+			var minutesOfEnd = seg.end.getMinutes();
+			var slotMinutes = opt('slotMinutes');
 			if (rtl) {
 				left = seg.isEnd ? (
-					leftColLeft + (leftColRight - leftColLeft) * (seg.start.getMinutes() % opt('slotMinutes'))/ opt('slotMinutes')
+					leftColLeft + (leftColRight - leftColLeft) * (minutesOfStart == slotMinutes ? 1 : (minutesOfStart % slotMinutes))/ opt('slotMinutes')
 					) : minLeft;
 				right = seg.isStart ? (
-					rightColLeft + (rightColRight - rightColLeft) * (seg.end.getMinutes() % opt('slotMinutes'))/ opt('slotMinutes')
+					rightColLeft + (rightColRight - rightColLeft) * (minutesOfEnd == slotMinutes ? 1 : (minutesOfEnd % slotMinutes))/ opt('slotMinutes')
 					) : maxLeft;
 			}else{
 				left = seg.isStart ? 
 					(
-						leftColLeft + (leftColRight - leftColLeft) * (seg.start.getMinutes() % opt('slotMinutes'))/ opt('slotMinutes')
+						leftColLeft + (leftColRight - leftColLeft) * (minutesOfStart == slotMinutes ? 1 : (minutesOfStart % slotMinutes))/ opt('slotMinutes')
 						) : minLeft;
 				right = seg.isEnd ? (
-					rightColLeft + (rightColRight - rightColLeft) * (seg.end.getMinutes() % opt('slotMinutes'))/ opt('slotMinutes')
+					rightColLeft + (rightColRight - rightColLeft) * (minutesOfEnd == slotMinutes ? 1 : (minutesOfEnd % slotMinutes))/ opt('slotMinutes')
 					) : maxLeft;
 			}
 			
