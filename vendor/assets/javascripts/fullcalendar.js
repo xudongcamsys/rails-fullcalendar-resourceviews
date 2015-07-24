@@ -6299,7 +6299,7 @@ function ResourceEventRenderer() {
 			
 			// TODO: better implementation for this one.. 
 			leftCol = dateCell(seg.start).col;
-			rightCol = dateCell(seg.end).col-1;
+			rightCol = dateCell(seg.end).col;
 
 			if (viewName == 'resourceDay') {
 				// hack for resourceDay view
