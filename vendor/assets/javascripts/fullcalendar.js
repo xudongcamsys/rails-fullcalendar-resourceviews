@@ -6317,11 +6317,7 @@ function ResourceEventRenderer() {
 			leftCol = dateCell(seg.start).col;
 			rightCol = dateCell(seg.end).col;
 
-			if (viewName == 'resourceDay') {
-				// hack for resourceDay view
-				if(((seg.end-seg.start)/1000/60) < opt('slotMinutes')) leftCol--;
-			}
-			else {
+			if (viewName != 'resourceDay') {
 				if(!weekends) {
 					leftCol = dateCell(seg.start).col;
 					rightCol = dateCell(addDays(cloneDate(seg.end),-1)).col;
