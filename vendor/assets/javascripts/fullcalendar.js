@@ -6170,7 +6170,7 @@ function ResourceEventRenderer() {
 
 		for (i=0; i<rowCnt; i++) {
 			currentResource = resources[i].id;
-			row = sliceSegs(events, visEventsEnds, d1, d2);
+			row = sliceSegs(events, visEventsEnds, d1, d2, resources[i].isDate);
 
 			for (j=0; j<row.length; j++) {
 				seg = row[j];
@@ -6208,7 +6208,7 @@ function ResourceEventRenderer() {
 	}
 	
 	
-	function sliceSegs(events, visEventEnds, start, end) {
+	function sliceSegs(events, visEventEnds, start, end, isResourceDate) {
 		var segs = [],
 			i, len=events.length, event,
 			eventStart, eventEnd,
@@ -6218,30 +6218,42 @@ function ResourceEventRenderer() {
 			event = events[i];
 			eventStart = event.start;
 			eventEnd = visEventEnds[i];
-			if (eventEnd > start && eventStart < end) {
-				if (eventStart < start) {
-					segStart = cloneDate(start);
-					isStart = false;
-				}else{
-					segStart = eventStart;
-					isStart = true;
+			if(!isResourceDate) {
+				if (eventEnd > start && eventStart < end) {
+					if (eventStart < start) {
+						segStart = cloneDate(start);
+						isStart = false;
+					}else{
+						segStart = eventStart;
+						isStart = true;
+					}
+					if (eventEnd > end) {
+						segEnd = cloneDate(end);
+						isEnd = false;
+					}else{
+						segEnd = eventEnd;
+						isEnd = true;
+					}
+					segs.push({
+						event: event,
+						start: segStart,
+						end: segEnd,
+						isStart: isStart,
+						isEnd: isEnd,
+						msLength: segEnd - segStart
+					});
 				}
-				if (eventEnd > end) {
-					segEnd = cloneDate(end);
-					isEnd = false;
-				}else{
-					segEnd = eventEnd;
-					isEnd = true;
-				}
+			} else {
 				segs.push({
 					event: event,
 					start: segStart,
 					end: segEnd,
-					isStart: isStart,
-					isEnd: isEnd,
+					isStart: true,
+					isEnd: true,
 					msLength: segEnd - segStart
 				});
 			}
+
 		}
 		return segs.sort(segCmp);
 	}
