@@ -5772,7 +5772,7 @@ function ResourceView(element, calendar, viewName) {
 		}
 
 		// not in range, return max
-		return colCnt;
+		return colCnt - 1;
 	}
 
 	// hours * 60 + minutes
