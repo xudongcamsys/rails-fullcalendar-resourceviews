@@ -5731,6 +5731,7 @@ function ResourceView(element, calendar, viewName) {
 	}
 
 	function timeOfDayCol(datetime) {
+		/*
 		var hours = datetime.getHours();
 		var minutes = datetime.getMinutes();
 		var slotMinutes = opt('slotMinutes');
@@ -5756,6 +5757,13 @@ function ResourceView(element, calendar, viewName) {
 
 		for ( var i = 0; i < colCnt; i++) {
 			if (indexDate(i).getHours() == hours && indexDate(i).getMinutes() == minutes) {
+				return i;
+			}
+		}
+		*/
+
+		for ( var i = 0; i < colCnt - 1; i++) {
+			if(indexDate(i) <= datetime && datetime <= indexDate(i+1)) {
 				return i;
 			}
 		}
