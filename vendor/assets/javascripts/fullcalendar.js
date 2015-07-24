@@ -5766,7 +5766,7 @@ function ResourceView(element, calendar, viewName) {
 		for ( var i = 0; i < colCnt - 1; i++) {
 			var leftTime = getTimePartInMinutes(indexDate(i)); 
 			var rightTime = getTimePartInMinutes(indexDate(i+1));
-			if(leftTime <= timeInMinutes && timeInMinutes <= rightTime) {
+			if(leftTime <= timeInMinutes && timeInMinutes < rightTime) {
 				return i;
 			}
 		}
