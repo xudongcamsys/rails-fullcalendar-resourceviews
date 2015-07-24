@@ -6313,12 +6313,25 @@ function ResourceEventRenderer() {
 				}
 			}
 			
+			var leftColLeft = colContentLeft(leftCol);
+			var leftColRight = colContentRight(leftCol);
+			var rightColLeft = colContentLeft(rightCol);
+			var rightColRight = colContentRight(rightCol);
 			if (rtl) {
-				left = seg.isEnd ? colContentLeft(leftCol) : minLeft;
-				right = seg.isStart ? colContentRight(rightCol) : maxLeft;
+				left = seg.isEnd ? (
+					leftColLeft + (leftColRight - leftColLeft) * (seg.start.getMinutes() % opt('slotMinutes'))/ opt('slotMinutes')
+					) : minLeft;
+				right = seg.isStart ? (
+					rightColLeft + (rightColRight - rightColLeft) * (seg.end.getMinutes() % opt('slotMinutes'))/ opt('slotMinutes')
+					) : maxLeft;
 			}else{
-				left = seg.isStart ? colContentLeft(leftCol) : minLeft;
-				right = seg.isEnd ? colContentRight(rightCol) : maxLeft;
+				left = seg.isStart ? 
+					(
+						leftColLeft + (leftColRight - leftColLeft) * (seg.start.getMinutes() % opt('slotMinutes'))/ opt('slotMinutes')
+						) : minLeft;
+				right = seg.isEnd ? (
+					rightColLeft + (rightColRight - rightColLeft) * (seg.end.getMinutes() % opt('slotMinutes'))/ opt('slotMinutes')
+					) : maxLeft;
 			}
 			
 			classes = classes.concat(event.className);
