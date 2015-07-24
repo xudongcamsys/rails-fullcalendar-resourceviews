@@ -5762,14 +5762,22 @@ function ResourceView(element, calendar, viewName) {
 		}
 		*/
 
+		var timeInMinutes = = getTimePartInMinutes(datetime);
 		for ( var i = 0; i < colCnt - 1; i++) {
-			if(indexDate(i) <= datetime && datetime <= indexDate(i+1)) {
+			var leftTime = getTimePartInMinutes(indexDate(i)); 
+			var rightTime = getTimePartInMinutes(indexDate(i+1));
+			if(leftTime <= timeInMinutes && timeInMinutes <= rightTime) {
 				return i;
 			}
 		}
 
 		// not in range, return max
 		return colCnt;
+	}
+
+	// hours * 60 + minutes
+	function getTimePartInMinutes(datetime) {
+		return datetime.getHours() * 60 + datetime.getMinutes();
 	}
 
 
