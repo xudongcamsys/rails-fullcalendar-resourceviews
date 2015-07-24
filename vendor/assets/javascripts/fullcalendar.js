@@ -6246,8 +6246,8 @@ function ResourceEventRenderer() {
 			} else {
 				segs.push({
 					event: event,
-					start: segStart,
-					end: segEnd,
+					start: eventStart,
+					end: eventEnd,
 					isStart: true,
 					isEnd: true,
 					msLength: segEnd - segStart
