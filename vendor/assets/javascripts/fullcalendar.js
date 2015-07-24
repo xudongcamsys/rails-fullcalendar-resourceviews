@@ -5251,14 +5251,20 @@ function ResourceView(element, calendar, viewName) {
 		html += "<tbody>";
 
 		for (row=0; row<rowCnt; row++) {
-			id = resources[row]['id'];
-			resourceName = resources[row]['name'];
+			var res = resources[row];
+			id = res['id'];
+			resourceName = res['name'];
+			var isDateResource = res['isDate'];
 
 			html += "<tr class='fc-resourcerow-" + id + "' data-resourceid='" + id + "'>" +
 			"<td class='fc-resourceName'>" + resourceName + "</td>";
 
 			for (col=0; col<colCnt; col++) {
-				date = indexDate(col);
+				if(isDateResource) {
+					date = new Date(id);
+				} else {
+					date = indexDate(col);
+				}
 				html += buildCellHTML(date);
 			}
 
