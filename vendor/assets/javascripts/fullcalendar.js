@@ -5762,7 +5762,7 @@ function ResourceView(element, calendar, viewName) {
 		}
 		*/
 
-		var timeInMinutes = = getTimePartInMinutes(datetime);
+		var timeInMinutes = getTimePartInMinutes(datetime);
 		for ( var i = 0; i < colCnt - 1; i++) {
 			var leftTime = getTimePartInMinutes(indexDate(i)); 
 			var rightTime = getTimePartInMinutes(indexDate(i+1));
