@@ -5762,21 +5762,21 @@ function ResourceView(element, calendar, viewName) {
 		}
 		*/
 
+		var slotMinutes = opt('slotMinutes');
 		var timeInMinutes = getTimePartInMinutes(datetime);
-		for ( var i = 0; i < colCnt - 1; i++) {
-			var leftTime = getTimePartInMinutes(indexDate(i)); 
-			var rightTime = getTimePartInMinutes(indexDate(i+1));
-			if(i == 0 && timeInMinutes < leftTime) {
-				return -1;
-			} else if(i == (colCnt - 2) && timeInMinutes >= rightTime) {
-				return colCnt;
-			} else if(leftTime <= timeInMinutes && timeInMinutes < rightTime) {
-				return i;
+		if(timeInMinutes < getTimePartInMinutes(indexDate(0))) {
+			return -1;
+		} else if (timeInMinutes >= (getTimePartInMinutes(indexDate(colCnt-1)) + slotMinutes)) {
+			return colCnt;
+		} else {
+			for ( var i = 0; i < colCnt; i++) {
+				var leftTime = getTimePartInMinutes(indexDate(i)); 
+				var rightTime = leftTime + slotMinutes;
+				if(leftTime <= timeInMinutes && timeInMinutes < rightTime) {
+					return i;
+				}
 			}
 		}
-
-		// not in range, return max
-		return colCnt;
 	}
 
 	// hours * 60 + minutes
@@ -6329,32 +6329,36 @@ function ResourceEventRenderer() {
 				}
 			}
 			
-			var leftColLeft = colContentLeft(leftCol);
-			var leftColRight = colContentRight(leftCol);
-			var rightColLeft = colContentLeft(rightCol);
-			var rightColRight = colContentRight(rightCol);
+			var leftColLeft,leftColRight,rightColLeft,rightColRight;
 			var colCnt = getColCnt();
 			var minutesOfStart = seg.start.getMinutes();
 			var minutesOfEnd = seg.end.getMinutes();
 			var slotMinutes = opt('slotMinutes');
 
-			if (rtl) {
-				left = seg.isEnd && leftCol >= 0 ? (
-					leftColLeft + (leftColRight - leftColLeft) * (minutesOfStart % slotMinutes)/ slotMinutes
-					) : minLeft;
-				right = seg.isStart && rightCol < colCnt ? (
-					rightColLeft + (rightColRight - rightColLeft) * (minutesOfEnd % slotMinutes)/ slotMinutes
-					) : maxLeft;
-			}else{
+			if(leftCol < 0) {
+				left = minLeft;
+			} else if (leftCol >= colCnt) {
+				left = maxLeft;
+			} else {
+				leftColLeft = colContentLeft(leftCol);
+				leftColRight = colContentRight(leftCol);
+				left = leftColLeft + (leftColRight - leftColLeft) * (minutesOfStart % slotMinutes)/ slotMinutes;
+				if( (rtl && seg.isEnd) || (!rtl && seg.isStart) ) {
+					left = minLeft;
+				}
+			}
 
-				left = seg.isStart && leftCol >= 0 ? 
-					(
-						leftColLeft + (leftColRight - leftColLeft) * (minutesOfStart % slotMinutes)/ slotMinutes
-						) : minLeft;
-
-				right = seg.isEnd && rightCol < colCnt ? (
-					rightColLeft + (rightColRight - rightColLeft) * (minutesOfEnd % slotMinutes)/ slotMinutes
-					) : maxLeft;
+			if(rightCol < 0) {
+				left = minLeft;
+			} else if (rightCol >= colCnt) {
+				left = maxLeft;
+			} else {
+				rightColLeft = colContentLeft(rightCol);
+				rightColRight = colContentRight(rightCol);
+				right = rightColLeft + (rightColRight - rightColLeft) * (minutesOfEnd % slotMinutes)/ slotMinutes;
+				if( (rtl && seg.isStart) || (!rtl && seg.isEnd) ) {
+					right = maxLeft;
+				}
 			}
 			
 			classes = classes.concat(event.className);
