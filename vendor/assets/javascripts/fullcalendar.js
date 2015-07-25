@@ -5766,13 +5766,17 @@ function ResourceView(element, calendar, viewName) {
 		for ( var i = 0; i < colCnt - 1; i++) {
 			var leftTime = getTimePartInMinutes(indexDate(i)); 
 			var rightTime = getTimePartInMinutes(indexDate(i+1));
-			if(leftTime <= timeInMinutes && timeInMinutes < rightTime) {
+			if(i == 0 && timeInMinutes < leftTime) {
+				return -1;
+			} else if(i == (colCnt - 2) && timeInMinutes >= rightTime) {
+				return colCnt;
+			} else if(leftTime <= timeInMinutes && timeInMinutes < rightTime) {
 				return i;
 			}
 		}
 
 		// not in range, return max
-		return colCnt - 1;
+		return colCnt;
 	}
 
 	// hours * 60 + minutes
@@ -6329,23 +6333,27 @@ function ResourceEventRenderer() {
 			var leftColRight = colContentRight(leftCol);
 			var rightColLeft = colContentLeft(rightCol);
 			var rightColRight = colContentRight(rightCol);
+			var colCnt = getColCnt();
 			var minutesOfStart = seg.start.getMinutes();
 			var minutesOfEnd = seg.end.getMinutes();
 			var slotMinutes = opt('slotMinutes');
+
 			if (rtl) {
-				left = seg.isEnd ? (
-					leftColLeft + (leftColRight - leftColLeft) * (minutesOfStart == slotMinutes ? 1 : (minutesOfStart % slotMinutes))/ opt('slotMinutes')
+				left = seg.isEnd && leftCol >= 0 ? (
+					leftColLeft + (leftColRight - leftColLeft) * (minutesOfStart % slotMinutes)/ slotMinutes
 					) : minLeft;
-				right = seg.isStart ? (
-					rightColLeft + (rightColRight - rightColLeft) * (minutesOfEnd == slotMinutes ? 1 : (minutesOfEnd % slotMinutes))/ opt('slotMinutes')
+				right = seg.isStart && rightCol < colCnt ? (
+					rightColLeft + (rightColRight - rightColLeft) * (minutesOfEnd % slotMinutes)/ slotMinutes
 					) : maxLeft;
 			}else{
-				left = seg.isStart ? 
+
+				left = seg.isStart && leftCol >= 0 ? 
 					(
-						leftColLeft + (leftColRight - leftColLeft) * (minutesOfStart == slotMinutes ? 1 : (minutesOfStart % slotMinutes))/ opt('slotMinutes')
+						leftColLeft + (leftColRight - leftColLeft) * (minutesOfStart % slotMinutes)/ slotMinutes
 						) : minLeft;
-				right = seg.isEnd ? (
-					rightColLeft + (rightColRight - rightColLeft) * (minutesOfEnd == slotMinutes ? 1 : (minutesOfEnd % slotMinutes))/ opt('slotMinutes')
+
+				right = seg.isEnd && rightCol < colCnt ? (
+					rightColLeft + (rightColRight - rightColLeft) * (minutesOfEnd % slotMinutes)/ slotMinutes
 					) : maxLeft;
 			}
 			
