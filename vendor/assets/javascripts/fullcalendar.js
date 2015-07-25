@@ -6349,9 +6349,9 @@ function ResourceEventRenderer() {
 			}
 
 			if(rightCol < 0) {
-				left = minLeft;
+				right = minLeft;
 			} else if (rightCol >= colCnt) {
-				left = maxLeft;
+				right = maxLeft;
 			} else {
 				rightColLeft = colContentLeft(rightCol);
 				rightColRight = colContentRight(rightCol);
