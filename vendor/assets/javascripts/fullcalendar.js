@@ -6343,7 +6343,7 @@ function ResourceEventRenderer() {
 				leftColLeft = colContentLeft(leftCol);
 				leftColRight = colContentRight(leftCol);
 				left = leftColLeft + (leftColRight - leftColLeft) * (minutesOfStart % slotMinutes)/ slotMinutes;
-				if( (rtl && seg.isEnd) || (!rtl && seg.isStart) ) {
+				if( (rtl && !seg.isEnd) || (!rtl && !seg.isStart) ) {
 					left = minLeft;
 				}
 			}
@@ -6356,7 +6356,7 @@ function ResourceEventRenderer() {
 				rightColLeft = colContentLeft(rightCol);
 				rightColRight = colContentRight(rightCol);
 				right = rightColLeft + (rightColRight - rightColLeft) * (minutesOfEnd % slotMinutes)/ slotMinutes;
-				if( (rtl && seg.isStart) || (!rtl && seg.isEnd) ) {
+				if( (rtl && !seg.isStart) || (!rtl && !seg.isEnd) ) {
 					right = maxLeft;
 				}
 			}
