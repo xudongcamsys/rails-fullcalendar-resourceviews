@@ -236,7 +236,7 @@ function Calendar(element, options, eventSources, resourceSources) {
 	var suggestedViewHeight;
 	var resizeUID = 0;
 	var ignoreWindowResize = 0;
-	var date = new Date();
+	var date = options["currentDate"] || new Date();
 	var events = [];
 	var _dragElement;
 	
@@ -4932,7 +4932,7 @@ function ResourceDayView(element, calendar) {
 			if (!opt('weekends')) skipWeekend(date, delta < 0 ? -1 : 1);
 		}
 		else {
-			date = new Date();
+			date = date || new Date();
 		}
 
 		var start = addMinutes(cloneDate(date, true),parseTime(opt('minTime')));
